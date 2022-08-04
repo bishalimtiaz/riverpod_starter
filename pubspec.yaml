@@ -1,0 +1,61 @@
+name: riverpod_starter
+description: Boilarplate template of Flutter Riverpod.
+publish_to: none
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+  flutter: '3.0.5'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_riverpod: ^2.0.0-dev.9
+  cupertino_icons: ^1.0.5
+  flutter_svg: ^1.1.2
+  dio: ^4.0.6
+  shared_preferences: ^2.0.15
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.17.0
+  cached_network_image: ^3.2.1
+  animations: ^2.0.3
+  logger: ^1.1.0
+  pretty_dio_logger: ^1.1.1
+  font_awesome_flutter: ^10.1.0
+  fluttertoast: ^8.0.9
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.1
+  analyzer: any
+  dart_code_metrics: any
+  change_app_package_name: ^1.1.0
+  flutter_launcher_icons: ^0.9.3
+
+flutter_icons:
+  android: "ic_launcher"
+  ios: true
+  image_path: "images/launcher_icon.png"
+
+flutter:
+  generate: true
+  uses-material-design: true
+  assets:
+    - images/
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: fonts/Roboto-Thin.ttf
+          weight: 200
+        - asset: fonts/Roboto-Light.ttf
+          weight: 200
+        - asset: fonts/Roboto-Regular.ttf
+          weight: 200
+        - asset: fonts/Roboto-Medium.ttf
+          weight: 300
+        - asset: fonts/Roboto-Bold.ttf
+          weight: 600
+        - asset: fonts/Roboto-Italic.ttf
+          style: italic
