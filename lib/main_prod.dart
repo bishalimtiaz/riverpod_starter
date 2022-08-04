@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '/app/my_app.dart';
 import '/flavors/build_config.dart';
@@ -17,5 +18,9 @@ void main() {
     envConfig: prodConfig,
   );
 
-  runApp(const MyApp());
+  runApp(
+    const ProviderScope(
+      child: MyApp(),
+    ),
+  );
 }
