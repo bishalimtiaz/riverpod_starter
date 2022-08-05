@@ -4,10 +4,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:logger/logger.dart';
-import 'package:riverpod_starter/app/core/services/navigation_service.dart';
-import 'package:riverpod_starter/app/core/values/app_colors.dart';
-import 'package:riverpod_starter/app/core/widget/loading.dart';
-import 'package:riverpod_starter/flavors/build_config.dart';
+import '/app/core/services/navigation_service.dart';
+import '/app/core/values/app_colors.dart';
+import '/app/core/widget/loading.dart';
+import '/flavors/build_config.dart';
 
 
 abstract class BaseView extends ConsumerWidget {

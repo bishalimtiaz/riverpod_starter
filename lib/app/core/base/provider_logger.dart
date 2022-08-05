@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
-import 'package:riverpod_starter/flavors/build_config.dart';
+import '/flavors/build_config.dart';
 
 class ProviderLogger extends ProviderObserver {
   final Logger logger = BuildConfig.instance.config.logger;
