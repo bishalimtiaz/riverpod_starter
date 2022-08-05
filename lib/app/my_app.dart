@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:riverpod_starter/app/core/services/navigation_service.dart';
+import 'package:riverpod_starter/app/modules/landing/views/landing_view.dart';
 import '/app/core/values/app_colors.dart';
 import '/flavors/build_config.dart';
 import '/flavors/env_config.dart';
@@ -21,6 +23,7 @@ class MyAppState extends State<MyApp> {
       //initialRoute: AppPages.INITIAL,
        //initialBinding: InitialBinding(),
       // getPages: AppPages.routes,
+      navigatorKey: NavigationService.navigatorKey,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: _getSupportedLocal(),
       theme: ThemeData(
@@ -38,9 +41,7 @@ class MyAppState extends State<MyApp> {
         fontFamily: 'Roboto',
       ),
       debugShowCheckedModeBanner: false,
-      home: Container(
-        color: Colors.red,
-      ),
+      home: LandingView(),
     );
   }
 

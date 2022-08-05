@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:riverpod_starter/app/core/services/navigation_service.dart';
 import 'package:riverpod_starter/app/core/values/app_colors.dart';
 import 'package:riverpod_starter/app/core/values/app_values.dart';
 import 'package:riverpod_starter/app/modules/landing/providers/landing_provider.dart';
@@ -12,23 +13,21 @@ class BottomNavBar extends ConsumerWidget {
   final Color selectedItemColor = Colors.white;
   final unselectedItemColor = Colors.grey;
   final Function(MenuCode menuCode) onNewMenuSelected;
-  late final AppLocalizations appLocalization;
 
   late final List<BottomNavItem> _navItems;
 
   BottomNavBar({
     Key? key,
     required this.onNewMenuSelected,
-  }) : super(key: key){
+  }) : super(key: key) {
     _navItems = _getNavItems();
   }
-
 
   final Key bottomNavKey = GlobalKey();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    //TODO: Take A Look If You Can Optimize
+    //TODO: Take A Look If You Can Refactor
     int selectedIndex = ref.watch(bottomNavSelectedIndexProvider);
 
     return BottomNavigationBar(
@@ -36,18 +35,17 @@ class BottomNavBar extends ConsumerWidget {
       items: _navItems
           .map(
             (BottomNavItem navItem) => BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              "images/${navItem.iconSvgName}",
-              height: AppValues.iconDefaultSize,
-              width: AppValues.iconDefaultSize,
-              color:
-              _navItems.indexOf(navItem) == selectedIndex
-                  ? selectedItemColor
-                  : unselectedItemColor,
-            ),
-            label: navItem.navTitle,
-            tooltip: ""),
-      )
+                icon: SvgPicture.asset(
+                  "images/${navItem.iconSvgName}",
+                  height: AppValues.iconDefaultSize,
+                  width: AppValues.iconDefaultSize,
+                  color: _navItems.indexOf(navItem) == selectedIndex
+                      ? selectedItemColor
+                      : unselectedItemColor,
+                ),
+                label: navItem.navTitle,
+                tooltip: ""),
+          )
           .toList(),
       showSelectedLabels: true,
       showUnselectedLabels: true,
@@ -57,7 +55,7 @@ class BottomNavBar extends ConsumerWidget {
       unselectedItemColor: unselectedItemColor,
       currentIndex: selectedIndex,
       onTap: (index) {
-        //TODO: Take A Look If You Can Optimize
+        //TODO: Take A Look If You Can Refactor
         ref.read(bottomNavSelectedIndexProvider.notifier).state = index;
         onNewMenuSelected(_navItems[index].menuCode);
       },
@@ -65,6 +63,9 @@ class BottomNavBar extends ConsumerWidget {
   }
 
   List<BottomNavItem> _getNavItems() {
+    final AppLocalizations appLocalization =
+        AppLocalizations.of(NavigationService.navigatorKey.currentContext!)!;
+
     return [
       BottomNavItem(
         navTitle: appLocalization.bottomNavHome,
@@ -72,13 +73,15 @@ class BottomNavBar extends ConsumerWidget {
         menuCode: MenuCode.HOME,
       ),
       BottomNavItem(
-          navTitle: appLocalization.bottomNavFavorite,
-          iconSvgName: "ic_favorite.svg",
-          menuCode: MenuCode.FAVORITE),
+        navTitle: appLocalization.bottomNavFavorite,
+        iconSvgName: "ic_favorite.svg",
+        menuCode: MenuCode.FAVORITE,
+      ),
       BottomNavItem(
-          navTitle: appLocalization.bottomNavSettings,
-          iconSvgName: "ic_settings.svg",
-          menuCode: MenuCode.SETTINGS)
+        navTitle: appLocalization.bottomNavSettings,
+        iconSvgName: "ic_settings.svg",
+        menuCode: MenuCode.SETTINGS,
+      )
     ];
   }
 }

@@ -4,15 +4,19 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:logger/logger.dart';
+import 'package:riverpod_starter/app/core/services/navigation_service.dart';
 import 'package:riverpod_starter/app/core/values/app_colors.dart';
 import 'package:riverpod_starter/app/core/widget/loading.dart';
 import 'package:riverpod_starter/flavors/build_config.dart';
+
 
 abstract class BaseView extends ConsumerWidget {
 
   final GlobalKey<ScaffoldState> globalKey = GlobalKey<ScaffoldState>();
 
-  AppLocalizations get appLocalization => AppLocalizations.of(globalKey.currentContext!)!;
+  AppLocalizations get appLocalization {
+    return AppLocalizations.of(NavigationService.navigatorKey.currentContext!)!;
+  }
 
   final Logger logger = BuildConfig.instance.config.logger;
 
@@ -24,8 +28,13 @@ abstract class BaseView extends ConsumerWidget {
   final bool _isLoading = false;
   final String _errorMessage = "";
 
+  //TODO: Take a look if we can make final and this variable not causing memory leakage
+  late WidgetRef ref;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    this.ref = ref;
+
     return GestureDetector(
       child: Stack(
         children: [
