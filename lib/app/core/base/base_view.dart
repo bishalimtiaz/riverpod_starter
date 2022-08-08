@@ -38,11 +38,11 @@ abstract class BaseView<T extends BaseController> extends ConsumerWidget {
       child: Stack(
         children: [
           annotatedRegion(context),
-          ref.watch(controller).pageState == PageState.LOADING //TODO: Take a look if you can refactorr
+          ref.watch(controller).pageState == PageState.LOADING //TODO: Take a look if you can refactor
               ? _showLoading()
               : const SizedBox(),
           ref.watch(controller).errorMessage.isNotEmpty
-              ? showErrorSnackBar( ref.watch(controller).errorMessage) //TODO: Take a look if you can refactorr
+              ? showErrorSnackBar( ref.watch(controller).errorMessage) //TODO: Take a look if you can refactor
               : const SizedBox(),
           const SizedBox(), //TODO: Take a look why this widget is needed
         ],

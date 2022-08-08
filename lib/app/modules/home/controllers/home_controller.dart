@@ -1,8 +1,9 @@
-import 'package:riverpod_starter/app/core/base/base_controller.dart';
-import 'package:riverpod_starter/app/core/base/base_repository.dart';
-import 'package:riverpod_starter/app/core/model/github_search_query_param.dart';
-import 'package:riverpod_starter/app/data/model/github_project_search_response.dart';
-import 'package:riverpod_starter/app/modules/home/ui_model/github_project_ui_model.dart';
+import '/app/core/base/base_controller.dart';
+import '/app/core/base/base_repository.dart';
+import '/app/core/base/paging_controller.dart';
+import '/app/core/model/github_search_query_param.dart';
+import '/app/data/model/github_project_search_response.dart';
+import '/app/modules/home/ui_model/github_project_ui_model.dart';
 
 class HomeController extends BaseController {
   HomeController({required BaseRepository repository})
@@ -13,15 +14,19 @@ class HomeController extends BaseController {
   void _getGithubGetxProjects() {
     var queryParam = GithubSearchQueryParam(
       searchKeyWord: 'flutter getx template',
-      pageNumber: 1,
+      pageNumber: pagingController.pageNumber,
     );
     var githubRepoSearchService = repository.searchProject(queryParam);
+    logger.d("paging_debug: isInitialLoad: ${pagingController.isInitialLoad}");
 
     callDataService(
       githubRepoSearchService,
+      onStart: pagingController.isInitialLoad ? null : () {}, //ignore: no-empty-block
       onSuccess: _handleProjectListResponseSuccess,
     );
   }
+
+  var pagingController = PagingController<GithubProjectUiModel>();
 
   void _handleProjectListResponseSuccess(GithubProjectSearchResponse response) {
     List<GithubProjectUiModel>? repoList = response.items
@@ -37,8 +42,19 @@ class HomeController extends BaseController {
             ))
         .toList();
 
-    githubProjectList.addAll(repoList ?? []);
+    pagingController.appendData(repoList ?? []);
+    githubProjectList.clear();
+    githubProjectList.addAll(pagingController.listItems);
     notifyListeners();
+  }
+
+  void onRefreshPage() {
+    _getGithubGetxProjects();
+  }
+
+  void onLoadNextPage() {
+    notifyListeners();
+    _getGithubGetxProjects();
   }
 
   @override

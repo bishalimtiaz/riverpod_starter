@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_starter/app/core/widget/paging_view.dart';
 import '/app/core/base/base_view.dart';
 import '/app/core/di/controller_provider.dart';
 import '/app/core/values/app_values.dart';
@@ -12,11 +13,16 @@ class HomeView extends BaseView<HomeController> {
     return null;
   }
 
-
-
   @override
   Widget body(BuildContext context) {
-    return  SingleChildScrollView(
+    return PagingView(
+      pagingController: ref.watch(controller).pagingController,
+      onRefresh: () async {
+        ref.read(controller).onRefreshPage();
+      },
+      onLoadNextPage: () {
+        ref.read(controller).onLoadNextPage();
+      },
       child: Padding(
         padding: const EdgeInsets.all(AppValues.padding),
         child: Column(
@@ -33,7 +39,7 @@ class HomeView extends BaseView<HomeController> {
                 return ItemGithubProject(dataModel: model);
               },
               separatorBuilder: (BuildContext context, int index) =>
-              const SizedBox(height: AppValues.smallMargin),
+                  const SizedBox(height: AppValues.smallMargin),
             )
           ],
         ),
@@ -42,8 +48,5 @@ class HomeView extends BaseView<HomeController> {
   }
 
   @override
-  // TODO: implement controller
   ProviderBase<HomeController> get controller => homeControllerProvider;
-
-
 }

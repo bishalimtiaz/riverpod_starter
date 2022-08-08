@@ -28,8 +28,14 @@ abstract class BaseController extends ChangeNotifier {
   PageState _pageStateController = PageState.DEFAULT;
   PageState get pageState => _pageStateController;
   void updatePageState(PageState state) => _pageStateController = state;
-  void resetPageState() => _pageStateController = PageState.DEFAULT;
-  void showPageLoading() => _pageStateController = PageState.LOADING;
+  void resetPageState(){
+    _pageStateController = PageState.DEFAULT;
+    notifyListeners();
+  }
+  void showPageLoading(){
+    _pageStateController = PageState.LOADING;
+    notifyListeners();
+  }
   void hideLoading() => resetPageState();
 
   /// Shows user specific error message on the screen
