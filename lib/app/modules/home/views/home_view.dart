@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_starter/app/core/base/paging_controller.dart';
 import 'package:riverpod_starter/app/core/widget/paging_view.dart';
 import '/app/core/base/base_view.dart';
 import '/app/core/di/controller_provider.dart';
@@ -8,6 +9,9 @@ import '/app/modules/home/controllers/home_controller.dart';
 import '/app/modules/home/widget/item_github_project.dart';
 
 class HomeView extends BaseView<HomeController> {
+
+  HomeView({Key? key}) : super(key: key);
+
   @override
   PreferredSizeWidget? appBar(BuildContext context) {
     return null;
@@ -15,35 +19,52 @@ class HomeView extends BaseView<HomeController> {
 
   @override
   Widget body(BuildContext context) {
-    return PagingView(
-      pagingController: ref.watch(controller).pagingController,
-      onRefresh: () async {
-        ref.read(controller).onRefreshPage();
-      },
-      onLoadNextPage: () {
-        ref.read(controller).onLoadNextPage();
-      },
-      child: Padding(
-        padding: const EdgeInsets.all(AppValues.padding),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            ListView.separated(
-              shrinkWrap: true,
-              itemCount: ref.watch(controller).githubProjectList.length,
-              primary: false,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) {
-                var model = ref.watch(controller).githubProjectList[index];
+    return Consumer(
+        builder: (context, ref, _) {
+          final PagingController pagingController = ref
+              .watch(controller)
+              .pagingController;
 
-                return ItemGithubProject(dataModel: model);
-              },
-              separatorBuilder: (BuildContext context, int index) =>
-                  const SizedBox(height: AppValues.smallMargin),
-            )
-          ],
-        ),
-      ),
+          return PagingView(
+            pagingController: pagingController,
+            onRefresh: () async {
+              ref.read(controller).onRefreshPage();
+            },
+            onLoadNextPage: () {
+              ref.read(controller).onLoadNextPage();
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(AppValues.padding),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Consumer(
+                      builder: (context, ref, _) {
+                        return ListView.separated(
+                          shrinkWrap: true,
+                          itemCount: ref
+                              .watch(controller)
+                              .githubProjectList
+                              .length,
+                          primary: false,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            var model = ref
+                                .watch(controller)
+                                .githubProjectList[index];
+
+                            return ItemGithubProject(dataModel: model);
+                          },
+                          separatorBuilder: (BuildContext context, int index) =>
+                          const SizedBox(height: AppValues.smallMargin),
+                        );
+                      }
+                  )
+                ],
+              ),
+            ),
+          );
+        }
     );
   }
 

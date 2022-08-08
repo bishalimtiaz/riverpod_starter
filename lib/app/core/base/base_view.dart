@@ -11,12 +11,13 @@ import '/app/core/values/app_colors.dart';
 import '/app/core/widget/loading.dart';
 import '/flavors/build_config.dart';
 
-
-abstract class BaseView<T extends BaseController> extends ConsumerWidget {
+abstract class BaseView<T extends BaseController> extends StatelessWidget {
+  BaseView({Key? key}) : super(key: key);
 
   final GlobalKey<ScaffoldState> globalKey = GlobalKey<ScaffoldState>();
 
-  AppLocalizations get appLocalization => AppLocalizations.of(NavigationService.navigatorKey.currentContext!)!;
+  AppLocalizations get appLocalization =>
+      AppLocalizations.of(NavigationService.navigatorKey.currentContext!)!;
 
   final Logger logger = BuildConfig.instance.config.logger;
 
@@ -24,30 +25,35 @@ abstract class BaseView<T extends BaseController> extends ConsumerWidget {
 
   PreferredSizeWidget? appBar(BuildContext context);
 
-
-  //TODO: Take a look if we can make final and this variable not causing memory leakage
-  late WidgetRef ref;
-
   abstract final ProviderBase<T> controller;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    this.ref = ref;
-
+  Widget build(BuildContext context) {
     return GestureDetector(
       child: Stack(
         children: [
           annotatedRegion(context),
-          ref.watch(controller).pageState == PageState.LOADING //TODO: Take a look if you can refactor
-              ? _showLoading()
-              : const SizedBox(),
-          ref.watch(controller).errorMessage.isNotEmpty
-              ? showErrorSnackBar( ref.watch(controller).errorMessage) //TODO: Take a look if you can refactor
-              : const SizedBox(),
-          const SizedBox(), //TODO: Take a look why this widget is needed
+          _loading(),
+          _message(),
         ],
       ),
     );
+  }
+
+  Widget _loading() {
+    return Consumer(builder: (context, ref, _) {
+      final PageState pageState = ref.watch(controller).pageState;
+
+      return pageState == PageState.LOADING ? _showLoading() : const SizedBox();
+    });
+  }
+
+  Widget _message() {
+    return Consumer(builder: (context, ref, _) {
+      final String message = ref.watch(controller).errorMessage;
+
+      return message.isNotEmpty ? showErrorSnackBar(message) : const SizedBox();
+    });
   }
 
   Widget annotatedRegion(BuildContext context) {
@@ -94,10 +100,7 @@ abstract class BaseView<T extends BaseController> extends ConsumerWidget {
 
   void showToast(String message) {
     Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        timeInSecForIosWeb: 1
-    );
+        msg: message, toastLength: Toast.LENGTH_SHORT, timeInSecForIosWeb: 1);
   }
 
   Color pageBackgroundColor() {

@@ -10,7 +10,10 @@ import 'package:riverpod_starter/app/modules/landing/views/bottom_nav_bar.dart';
 import 'package:riverpod_starter/app/modules/other/views/other_view.dart';
 import 'package:riverpod_starter/app/modules/settings/views/settings_view.dart';
 
+//ignore: must_be_immutable
 class LandingView extends BaseView<LandingController> {
+  LandingView({Key? key}) : super(key: key);
+
   @override
   PreferredSizeWidget? appBar(BuildContext context) {
     return null;
@@ -18,21 +21,27 @@ class LandingView extends BaseView<LandingController> {
 
   @override
   Widget body(BuildContext context) {
-
     return Container(
       key: UniqueKey(),
-      child: _getPageOnSelectedMenu(ref.watch(controller).bottomNavSelectedMenu), //TODO: Take a look if you can refactor
+      child: Consumer(
+        builder: (context, ref, _) {
+          final MenuCode selectedMenu = ref.watch(controller).bottomNavSelectedMenu;
+
+          return _getPageOnSelectedMenu(selectedMenu);
+        },
+      ),
     );
   }
 
   @override
   Widget? bottomNavigationBar() {
-    return BottomNavBar(
-      onNewMenuSelected: (MenuCode menuCode) {
-        //TODO: Take a look you can refactor it
-        ref.read(controller).onMenuSelected(menuCode);
-      },
-    );
+    return Consumer(builder: (context, ref, _) {
+      return BottomNavBar(
+        onNewMenuSelected: (MenuCode menuCode) {
+          ref.read(controller).onMenuSelected(menuCode);
+        },
+      );
+    });
   }
 
   final HomeView homeView = HomeView();
@@ -55,6 +64,5 @@ class LandingView extends BaseView<LandingController> {
   }
 
   @override
-  // TODO: implement controller
   ProviderBase<LandingController> get controller => landingControllerProvider;
 }
