@@ -4,19 +4,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:logger/logger.dart';
+import 'package:riverpod_starter/app/core/base/base_controller.dart';
 import '/app/core/services/navigation_service.dart';
 import '/app/core/values/app_colors.dart';
 import '/app/core/widget/loading.dart';
 import '/flavors/build_config.dart';
 
 
-abstract class BaseView extends ConsumerWidget {
+abstract class BaseView<T extends BaseController> extends ConsumerWidget {
 
   final GlobalKey<ScaffoldState> globalKey = GlobalKey<ScaffoldState>();
 
-  AppLocalizations get appLocalization {
-    return AppLocalizations.of(NavigationService.navigatorKey.currentContext!)!;
-  }
+  AppLocalizations get appLocalization => AppLocalizations.of(NavigationService.navigatorKey.currentContext!)!;
 
   final Logger logger = BuildConfig.instance.config.logger;
 
@@ -30,6 +29,8 @@ abstract class BaseView extends ConsumerWidget {
 
   //TODO: Take a look if we can make final and this variable not causing memory leakage
   late WidgetRef ref;
+
+  abstract final ProviderBase<T> controller;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -45,7 +46,7 @@ abstract class BaseView extends ConsumerWidget {
           _errorMessage.isNotEmpty
               ? showErrorSnackBar(_errorMessage)
               : const SizedBox(),
-          const SizedBox(),
+          const SizedBox(), //TODO: Take a look why this widget is needed
         ],
       ),
     );

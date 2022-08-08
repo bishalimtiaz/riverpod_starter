@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:riverpod/src/framework.dart';
+import 'package:riverpod_starter/app/core/base/base_controller.dart';
 import 'package:riverpod_starter/app/core/base/base_view.dart';
 import 'package:riverpod_starter/app/modules/favourite/views/favourite_view.dart';
 import 'package:riverpod_starter/app/modules/home/views/home_view.dart';
@@ -52,4 +54,8 @@ class LandingView extends BaseView {
         return OtherView();
     }
   }
+
+  @override
+  // TODO: implement controller
+  ProviderBase<BaseController> get controller => throw UnimplementedError();
 }

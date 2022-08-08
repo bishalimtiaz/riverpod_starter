@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:riverpod/src/framework.dart';
+import 'package:riverpod_starter/app/core/base/base_controller.dart';
 import 'package:riverpod_starter/app/core/base/base_view.dart';
 
 class SettingsView extends BaseView {
@@ -24,4 +26,8 @@ class SettingsView extends BaseView {
       ),
     );
   }
+
+  @override
+  // TODO: implement controller
+  ProviderBase<BaseController> get controller => throw UnimplementedError();
 }
