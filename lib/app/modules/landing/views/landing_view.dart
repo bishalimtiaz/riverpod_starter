@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:riverpod/src/framework.dart';
-import 'package:riverpod_starter/app/core/base/base_controller.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_starter/app/core/base/base_view.dart';
+import 'package:riverpod_starter/app/core/di/controller_provider.dart';
 import 'package:riverpod_starter/app/modules/favourite/views/favourite_view.dart';
 import 'package:riverpod_starter/app/modules/home/views/home_view.dart';
-import 'package:riverpod_starter/app/modules/landing/providers/landing_provider.dart';
+import 'package:riverpod_starter/app/modules/landing/controllers/landing_controller.dart';
 import 'package:riverpod_starter/app/modules/landing/ui_model/menu_code.dart';
 import 'package:riverpod_starter/app/modules/landing/views/bottom_nav_bar.dart';
 import 'package:riverpod_starter/app/modules/other/views/other_view.dart';
 import 'package:riverpod_starter/app/modules/settings/views/settings_view.dart';
 
-class LandingView extends BaseView {
+class LandingView extends BaseView<LandingController> {
   @override
   PreferredSizeWidget? appBar(BuildContext context) {
     return null;
@@ -18,11 +18,10 @@ class LandingView extends BaseView {
 
   @override
   Widget body(BuildContext context) {
-    MenuCode menuCode = ref.watch(bottomNavSelectedMenuProvider);
 
     return Container(
       key: UniqueKey(),
-      child: _getPageOnSelectedMenu(menuCode),
+      child: _getPageOnSelectedMenu(ref.watch(controller).bottomNavSelectedMenu), //TODO: Take a look if you can refactor
     );
   }
 
@@ -31,7 +30,7 @@ class LandingView extends BaseView {
     return BottomNavBar(
       onNewMenuSelected: (MenuCode menuCode) {
         //TODO: Take a look you can refactor it
-        ref.read(bottomNavSelectedMenuProvider.notifier).state = menuCode;
+        ref.read(controller).onMenuSelected(menuCode);
       },
     );
   }
@@ -57,5 +56,5 @@ class LandingView extends BaseView {
 
   @override
   // TODO: implement controller
-  ProviderBase<BaseController> get controller => throw UnimplementedError();
+  ProviderBase<LandingController> get controller => landingControllerProvider;
 }

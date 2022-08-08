@@ -1,10 +1,10 @@
-
 import 'package:flutter/material.dart';
-import 'package:riverpod/src/framework.dart';
-import 'package:riverpod_starter/app/core/base/base_controller.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_starter/app/core/base/base_view.dart';
+import 'package:riverpod_starter/app/core/di/controller_provider.dart';
+import 'package:riverpod_starter/app/modules/favourite/controllers/favourite_controller.dart';
 
-class FavouriteView extends BaseView{
+class FavouriteView extends BaseView<FavouriteController> {
   @override
   PreferredSizeWidget? appBar(BuildContext context) {
     return null;
@@ -17,7 +17,7 @@ class FavouriteView extends BaseView{
 
   @override
   Widget body(BuildContext context) {
-    return  Center(
+    return Center(
       child: Text(
         appLocalization.bottomNavFavorite,
         style: const TextStyle(
@@ -29,7 +29,6 @@ class FavouriteView extends BaseView{
   }
 
   @override
-  // TODO: implement controller
-  ProviderBase<BaseController> get controller => throw UnimplementedError();
-
+  ProviderBase<FavouriteController> get controller =>
+      favouriteControllerProvider;
 }

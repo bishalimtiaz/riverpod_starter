@@ -5,6 +5,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:logger/logger.dart';
 import 'package:riverpod_starter/app/core/base/base_controller.dart';
+import 'package:riverpod_starter/app/core/model/page_state.dart';
 import '/app/core/services/navigation_service.dart';
 import '/app/core/values/app_colors.dart';
 import '/app/core/widget/loading.dart';
@@ -23,9 +24,6 @@ abstract class BaseView<T extends BaseController> extends ConsumerWidget {
 
   PreferredSizeWidget? appBar(BuildContext context);
 
-  //TODO: Replace with provider
-  final bool _isLoading = false;
-  final String _errorMessage = "";
 
   //TODO: Take a look if we can make final and this variable not causing memory leakage
   late WidgetRef ref;
@@ -40,11 +38,11 @@ abstract class BaseView<T extends BaseController> extends ConsumerWidget {
       child: Stack(
         children: [
           annotatedRegion(context),
-          _isLoading
+          ref.watch(controller).pageState == PageState.LOADING //TODO: Take a look if you can refactorr
               ? _showLoading()
               : const SizedBox(),
-          _errorMessage.isNotEmpty
-              ? showErrorSnackBar(_errorMessage)
+          ref.watch(controller).errorMessage.isNotEmpty
+              ? showErrorSnackBar( ref.watch(controller).errorMessage) //TODO: Take a look if you can refactorr
               : const SizedBox(),
           const SizedBox(), //TODO: Take a look why this widget is needed
         ],

@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_starter/app/modules/landing/ui_model/menu_code.dart';
 
+
+//TODO: Move it to some controller
 final bottomNavSelectedIndexProvider = StateProvider<int>((ref) => 0);
-final bottomNavSelectedMenuProvider = StateProvider<MenuCode>((ref) => MenuCode.HOME);
+//final bottomNavSelectedMenuProvider = StateProvider<MenuCode>((ref) => MenuCode.HOME);

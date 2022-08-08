@@ -15,7 +15,7 @@ abstract class BaseController extends ChangeNotifier {
   final dynamic repository;
   final Logger logger = BuildConfig.instance.config.logger;
 
-  BaseController({required this.repository}) {
+  BaseController({this.repository}) {
     onInit();
   }
 

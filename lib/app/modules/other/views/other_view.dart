@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:riverpod/src/framework.dart';
-import 'package:riverpod_starter/app/core/base/base_controller.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_starter/app/core/base/base_view.dart';
+import 'package:riverpod_starter/app/core/di/controller_provider.dart';
+import 'package:riverpod_starter/app/modules/other/controllers/other_controller.dart';
 
-class OtherView extends BaseView {
+class OtherView extends BaseView<OtherController> {
   @override
   PreferredSizeWidget? appBar(BuildContext context) {
    return null;
@@ -23,6 +24,5 @@ class OtherView extends BaseView {
   }
 
   @override
-  // TODO: implement controller
-  ProviderBase<BaseController> get controller => throw UnimplementedError();
+  ProviderBase<OtherController> get controller => otherControllerProvider;
 }
