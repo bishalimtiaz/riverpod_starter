@@ -68,7 +68,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.hellohasan.flutter_getx_template"
+        applicationId "com.blz.flutter.riverpod_starter"
         minSdkVersion 19
         targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
