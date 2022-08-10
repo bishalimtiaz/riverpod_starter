@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 import '/flavors/build_config.dart';
-import '/app/core/model/page_state.dart';
+import '/app/core/ui_model/page_state.dart';
 import '/app/network/exceptions/api_exception.dart';
 import '/app/network/exceptions/app_exception.dart';
 import '/app/network/exceptions/json_format_exception.dart';
@@ -89,6 +89,7 @@ abstract class BaseController extends ChangeNotifier {
       showErrorMessage(exception.message);
     } on ApiException catch (exception) {
       tempException = exception;
+      showErrorMessage(exception.message);
     } on AppException catch (exception) {
       tempException = exception;
       showErrorMessage(exception.message);

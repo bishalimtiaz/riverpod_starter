@@ -5,7 +5,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:logger/logger.dart';
 import 'package:riverpod_starter/app/core/base/base_controller.dart';
-import 'package:riverpod_starter/app/core/model/page_state.dart';
+import 'package:riverpod_starter/app/core/ui_model/page_state.dart';
 import '/app/core/services/navigation_service.dart';
 import '/app/core/values/app_colors.dart';
 import '/app/core/widget/loading.dart';

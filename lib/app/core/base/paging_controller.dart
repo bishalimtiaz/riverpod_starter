@@ -10,8 +10,10 @@ class PagingController<T> extends ChangeNotifier{
   bool get isLoadingPage => _loadingController;
 
   void setIsLoading(bool value) {
-    _loadingController = value;
-    notifyListeners();
+    if(_loadingController != value){
+      _loadingController = value;
+      notifyListeners();
+    }
   }
 
   bool _endOfListController = false;
