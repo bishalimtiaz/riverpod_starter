@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:riverpod_starter/app/core/services/navigation_service.dart';
-import 'package:riverpod_starter/app/core/values/app_colors.dart';
-import 'package:riverpod_starter/app/core/values/app_values.dart';
-import 'package:riverpod_starter/app/modules/landing/providers/landing_provider.dart';
-import 'package:riverpod_starter/app/modules/landing/ui_model/menu_code.dart';
+import '/app/core/services/navigation_service.dart';
+import '/app/core/values/app_colors.dart';
+import '/app/core/values/app_values.dart';
+import '/app/modules/landing/providers/landing_provider.dart';
+import '/app/modules/landing/ui_model/menu_code.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:riverpod_starter/app/modules/landing/ui_model/menu_item.dart';
+import '/app/modules/landing/ui_model/menu_item.dart';
 
 class BottomNavBar extends ConsumerWidget {
   final Color selectedItemColor = Colors.white;

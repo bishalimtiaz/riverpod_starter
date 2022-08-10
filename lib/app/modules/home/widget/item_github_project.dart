@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:riverpod_starter/app/core/base/base_widget_mixin.dart';
-
-import 'package:riverpod_starter/app/core/widget/ripple.dart';
-import 'package:riverpod_starter/app/modules/home/ui_model/github_project_ui_model.dart';
-
-
+import '/app/core/base/base_widget_mixin.dart';
+import '/app/core/widget/ripple.dart';
+import '/app/modules/home/ui_model/github_project_ui_model.dart';
 import '/app/core/values/app_colors.dart';
 import '/app/core/values/app_values.dart';
 import '/app/core/values/text_styles.dart';

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_starter/app/core/base/base_view.dart';
-import 'package:riverpod_starter/app/core/di/controller_provider.dart';
-import 'package:riverpod_starter/app/modules/favourite/views/favourite_view.dart';
-import 'package:riverpod_starter/app/modules/home/views/home_view.dart';
-import 'package:riverpod_starter/app/modules/landing/controllers/landing_controller.dart';
-import 'package:riverpod_starter/app/modules/landing/ui_model/menu_code.dart';
-import 'package:riverpod_starter/app/modules/landing/views/bottom_nav_bar.dart';
-import 'package:riverpod_starter/app/modules/other/views/other_view.dart';
-import 'package:riverpod_starter/app/modules/settings/views/settings_view.dart';
+import '/app/core/base/base_view.dart';
+import '/app/core/di/controller_provider.dart';
+import '/app/modules/favourite/views/favourite_view.dart';
+import '/app/modules/home/views/home_view.dart';
+import '/app/modules/landing/controllers/landing_controller.dart';
+import '/app/modules/landing/ui_model/menu_code.dart';
+import '/app/modules/landing/views/bottom_nav_bar.dart';
+import '/app/modules/other/views/other_view.dart';
+import '/app/modules/settings/views/settings_view.dart';
 
 //ignore: must_be_immutable
 class LandingView extends BaseView<LandingController> {

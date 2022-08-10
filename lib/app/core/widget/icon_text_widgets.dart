@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '/app/core/values/app_values.dart';
 import '/app/core/widget/asset_image_view.dart';
 

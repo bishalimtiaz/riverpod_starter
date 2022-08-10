@@ -1,22 +1,25 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '/app/data/repository/github_repository.dart';
 import '/app/core/base/base_controller.dart';
-import '/app/core/base/base_repository.dart';
 import '/app/core/base/paging_controller.dart';
 import '/app/core/model/github_search_query_param.dart';
 import '/app/data/model/github_project_search_response.dart';
 import '/app/modules/home/ui_model/github_project_ui_model.dart';
 
 class HomeController extends BaseController {
-  final ChangeNotifierProvider<PagingController<GithubProjectUiModel>> pagingControllerProvider;
-  final ChangeNotifierProviderRef  ref;
+  final ChangeNotifierProvider<PagingController<GithubProjectUiModel>>
+      pagingControllerProvider;
 
-  HomeController({
-    required BaseRepository repository,
-    required this.pagingControllerProvider,
-    required this.ref,
-  }) : super(repository: repository);
+  final GithubRepository repository;
 
   final List<GithubProjectUiModel> githubProjectList = [];
+
+  HomeController({
+    required ChangeNotifierProviderRef<ChangeNotifier> ref,
+    required this.repository,
+    required this.pagingControllerProvider,
+  }) : super(ref: ref);
 
   void _getGithubGetxProjects() {
     var queryParam = GithubSearchQueryParam(
@@ -24,16 +27,14 @@ class HomeController extends BaseController {
       pageNumber: ref.read(pagingControllerProvider).pageNumber,
     );
     var githubRepoSearchService = repository.searchProject(queryParam);
-    //logger.d("paging_debug: isInitialLoad: ${pagingController.isInitialLoad}");
+
 
     callDataService(
       githubRepoSearchService,
-      onStart: ref.read(pagingControllerProvider).isInitialLoad ? null : () {},
-      //ignore: no-empty-block
+      onStart: ref.read(pagingControllerProvider).isInitialLoad ? null : () {}, //ignore: no-empty-block
       onSuccess: _handleProjectListResponseSuccess,
     );
   }
-
 
   void _handleProjectListResponseSuccess(GithubProjectSearchResponse response) {
     List<GithubProjectUiModel>? repoList = response.items
@@ -67,11 +68,5 @@ class HomeController extends BaseController {
   void onInit() {
     _getGithubGetxProjects();
     super.onInit();
-  }
-
-  @override
-  void onDispose() {
-    ref.invalidateSelf();
-    super.onDispose();
   }
 }

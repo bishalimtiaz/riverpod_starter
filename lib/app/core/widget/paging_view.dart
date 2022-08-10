@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_starter/app/core/base/paging_controller.dart';
-import 'package:riverpod_starter/app/core/values/app_colors.dart';
+import '/app/core/base/paging_controller.dart';
+import '/app/core/values/app_colors.dart';
 import '/app/core/utils/debouncer.dart';
 import '/app/core/values/app_values.dart';
 

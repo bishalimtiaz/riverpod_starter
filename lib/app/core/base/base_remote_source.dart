@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:dio/dio.dart';
 import '/app/network/dio_provider.dart';
 import '/app/network/error_handlers.dart';

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 import '/flavors/build_config.dart';
 import '/app/core/model/page_state.dart';
@@ -12,10 +13,10 @@ import '/app/network/exceptions/timeout_exception.dart';
 import '/app/network/exceptions/unauthorize_exception.dart';
 
 abstract class BaseController extends ChangeNotifier {
-  final dynamic repository;
   final Logger logger = BuildConfig.instance.config.logger;
+  final ChangeNotifierProviderRef<ChangeNotifier>  ref;
 
-  BaseController({this.repository}) {
+  BaseController({required this.ref}) {
     onInit();
   }
 
@@ -108,7 +109,9 @@ abstract class BaseController extends ChangeNotifier {
 
   @mustCallSuper
   //ignore: no-empty-block
-  void onDispose() {}
+  void onDispose() {
+    ref.invalidateSelf();
+  }
 
   @override
   void dispose() {

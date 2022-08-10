@@ -1,14 +1,16 @@
-import 'package:riverpod_starter/app/core/base/base_remote_source.dart';
-import 'package:riverpod_starter/app/core/base/base_repository.dart';
+
+import 'package:riverpod_starter/app/data/data_source/remote_data_source/github_remote_data_source.dart';
 
 import '/app/core/model/github_search_query_param.dart';
 import '/app/data/model/github_project_search_response.dart';
 import '/app/data/repository/github_repository.dart';
 
-class GithubRepositoryImpl extends BaseRepository implements GithubRepository {
+class GithubRepositoryImpl implements GithubRepository {
+  final GithubRemoteDataSource remoteSource;
+
   GithubRepositoryImpl({
-    required BaseRemoteSource remoteSource,
-  }) : super(remoteSource: remoteSource);
+    required this.remoteSource,
+  });
 
   @override
   Future<GithubProjectSearchResponse> searchProject(
