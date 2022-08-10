@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '/app/core/base/base_controller.dart';
 import '/app/core/base/base_repository.dart';
 import '/app/core/base/paging_controller.dart';
@@ -6,27 +7,33 @@ import '/app/data/model/github_project_search_response.dart';
 import '/app/modules/home/ui_model/github_project_ui_model.dart';
 
 class HomeController extends BaseController {
-  HomeController({required BaseRepository repository})
-      : super(repository: repository);
+  final ChangeNotifierProvider<PagingController<GithubProjectUiModel>> pagingControllerProvider;
+  final ChangeNotifierProviderRef  ref;
+
+  HomeController({
+    required BaseRepository repository,
+    required this.pagingControllerProvider,
+    required this.ref,
+  }) : super(repository: repository);
 
   final List<GithubProjectUiModel> githubProjectList = [];
 
   void _getGithubGetxProjects() {
     var queryParam = GithubSearchQueryParam(
       searchKeyWord: 'flutter getx template',
-      pageNumber: pagingController.pageNumber,
+      pageNumber: ref.read(pagingControllerProvider).pageNumber,
     );
     var githubRepoSearchService = repository.searchProject(queryParam);
-    logger.d("paging_debug: isInitialLoad: ${pagingController.isInitialLoad}");
+    //logger.d("paging_debug: isInitialLoad: ${pagingController.isInitialLoad}");
 
     callDataService(
       githubRepoSearchService,
-      onStart: pagingController.isInitialLoad ? null : () {}, //ignore: no-empty-block
+      onStart: ref.read(pagingControllerProvider).isInitialLoad ? null : () {},
+      //ignore: no-empty-block
       onSuccess: _handleProjectListResponseSuccess,
     );
   }
 
-  var pagingController = PagingController<GithubProjectUiModel>();
 
   void _handleProjectListResponseSuccess(GithubProjectSearchResponse response) {
     List<GithubProjectUiModel>? repoList = response.items
@@ -42,9 +49,9 @@ class HomeController extends BaseController {
             ))
         .toList();
 
-    pagingController.appendData(repoList ?? []);
+    ref.read(pagingControllerProvider).appendData(repoList ?? []);
     githubProjectList.clear();
-    githubProjectList.addAll(pagingController.listItems);
+    githubProjectList.addAll(ref.read(pagingControllerProvider).listItems);
     notifyListeners();
   }
 
@@ -53,7 +60,6 @@ class HomeController extends BaseController {
   }
 
   void onLoadNextPage() {
-    notifyListeners();
     _getGithubGetxProjects();
   }
 
@@ -61,5 +67,11 @@ class HomeController extends BaseController {
   void onInit() {
     _getGithubGetxProjects();
     super.onInit();
+  }
+
+  @override
+  void onDispose() {
+    ref.invalidateSelf();
+    super.onDispose();
   }
 }

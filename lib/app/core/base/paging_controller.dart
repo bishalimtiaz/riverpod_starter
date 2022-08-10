@@ -1,6 +1,7 @@
+import 'package:flutter/widgets.dart';
 import '/app/core/values/app_values.dart';
 
-class PagingController<T> {
+class PagingController<T> extends ChangeNotifier{
   List<T> listItems = [];
   int pageNumber = AppValues.defaultPageNumber;
 
@@ -10,6 +11,7 @@ class PagingController<T> {
 
   void setIsLoading(bool value) {
     _loadingController = value;
+    notifyListeners();
   }
 
   bool _endOfListController = false;
@@ -23,9 +25,9 @@ class PagingController<T> {
   initRefresh() {
     listItems = [];
     pageNumber = AppValues.defaultPageNumber;
-    setIsLoading(false);
     _endOfListController = false;
     _isInitialLoadController = true;
+    setIsLoading(false);
   }
 
   bool canLoadNextPage() {
@@ -40,7 +42,7 @@ class PagingController<T> {
       listItems.addAll(items);
       pageNumber++;
     }
-    setIsLoading(false);
     if (isInitialLoad) _isInitialLoadController = false;
+    setIsLoading(false);
   }
 }

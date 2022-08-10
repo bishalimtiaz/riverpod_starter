@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_starter/app/core/base/paging_controller.dart';
 import 'package:riverpod_starter/app/core/values/app_colors.dart';
-
 import '/app/core/utils/debouncer.dart';
 import '/app/core/values/app_values.dart';
 
 ///ignore: must_be_immutable
-class PagingView extends StatelessWidget {
+class PagingView extends ConsumerWidget {
   final Widget child;
   final Function() onLoadNextPage;
   final Future<void> Function()? onRefresh;
-  final PagingController<dynamic> pagingController;
+  final ChangeNotifierProvider<PagingController<dynamic>>
+      pagingControllerProvider;
 
   PagingView({
     Key? key,
     required this.child,
     required this.onLoadNextPage,
-    required this.pagingController,
+    required this.pagingControllerProvider,
     this.onRefresh,
   }) : super(key: key);
 
@@ -26,8 +27,8 @@ class PagingView extends StatelessWidget {
   final _debouncer = Debouncer(milliseconds: 500);
 
   @override
-  Widget build(BuildContext context) {
-   // print("paging_debug: pageNumber: ${pagingController.pageNumber} isLoading: ${pagingController.isLoadingPage} end: ${pagingController.endOfList}");
+  Widget build(BuildContext context, WidgetRef ref) {
+    // print("paging_debug: pageNumber: ${pagingController.pageNumber} isLoading: ${pagingController.isLoadingPage} end: ${pagingController.endOfList}");
 
     return NotificationListener(
       onNotification: (ScrollNotification scrollInfo) {
@@ -38,8 +39,8 @@ class PagingView extends StatelessWidget {
             (_scrollController.position.userScrollDirection ==
                 ScrollDirection.reverse)) {
           _debouncer.run(() {
-            if (pagingController.canLoadNextPage()) {
-              pagingController.setIsLoading(true);
+            if (ref.read(pagingControllerProvider).canLoadNextPage()) {
+              ref.read(pagingControllerProvider).setIsLoading(true);
               onLoadNextPage();
             }
           });
@@ -50,13 +51,13 @@ class PagingView extends StatelessWidget {
       child: onRefresh == null
           ? _getScrollableView()
           : RefreshIndicator(
-        child: _getScrollableView(),
-        onRefresh: () async {
-          pagingController.initRefresh();
-          pagingController.setIsLoading(true);
-          onRefresh!();
-        },
-      ),
+              child: _getScrollableView(),
+              onRefresh: () async {
+                ref.read(pagingControllerProvider).initRefresh();
+                ref.read(pagingControllerProvider).setIsLoading(true);
+                onRefresh!();
+              },
+            ),
     );
   }
 
@@ -73,15 +74,19 @@ class PagingView extends StatelessWidget {
   }
 
   Widget _getFooter() {
-    return Container(
-      margin: EdgeInsets.only(
-          bottom: !pagingController.endOfList ? AppValues.margin_20 : 0),
-      height: !pagingController.endOfList ? AppValues.margin_40 : 0,
-      child: (!pagingController.endOfList && pagingController.isLoadingPage)
-          ? const CircularProgressIndicator(
-        color: AppColors.colorPrimary,
-      )
-          : const SizedBox(),
-    );
+    return Consumer(builder: (context, ref, _) {
+      var controller = ref.watch(pagingControllerProvider);
+
+      return Container(
+        margin: EdgeInsets.only(
+            bottom: !controller.endOfList ? AppValues.margin_20 : 0),
+        height: !controller.endOfList ? AppValues.margin_40 : 0,
+        child: (!controller.endOfList && controller.isLoadingPage)
+            ? const CircularProgressIndicator(
+                color: AppColors.colorPrimary,
+              )
+            : const SizedBox(),
+      );
+    });
   }
 }

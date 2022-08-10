@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_starter/app/core/base/paging_controller.dart';
-import 'package:riverpod_starter/app/core/widget/paging_view.dart';
+import '/app/core/widget/paging_view.dart';
 import '/app/core/base/base_view.dart';
 import '/app/core/di/controller_provider.dart';
 import '/app/core/values/app_values.dart';
@@ -21,12 +20,9 @@ class HomeView extends BaseView<HomeController> {
   Widget body(BuildContext context) {
     return Consumer(
         builder: (context, ref, _) {
-          final PagingController pagingController = ref
-              .watch(controller)
-              .pagingController;
 
           return PagingView(
-            pagingController: pagingController,
+            pagingControllerProvider: ref.read(controller).pagingControllerProvider,
             onRefresh: () async {
               ref.read(controller).onRefreshPage();
             },
