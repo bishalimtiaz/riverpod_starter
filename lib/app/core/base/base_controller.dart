@@ -25,20 +25,6 @@ abstract class BaseController extends ChangeNotifier {
   String get message => _messageController;
   void showMessage(String msg) => _messageController = msg;
 
-  /// Defines page state of a particular screen
-  PageState _pageStateController = PageState.DEFAULT;
-  PageState get pageState => _pageStateController;
-  void updatePageState(PageState state) => _pageStateController = state;
-  void resetPageState(){
-    _pageStateController = PageState.DEFAULT;
-    notifyListeners();
-  }
-  void showPageLoading(){
-    _pageStateController = PageState.LOADING;
-    notifyListeners();
-  }
-  void hideLoading() => resetPageState();
-
   /// Shows user specific error message on the screen
   String _errorMessageController = "";
   String get errorMessage => _errorMessageController;
@@ -50,6 +36,29 @@ abstract class BaseController extends ChangeNotifier {
   String get successMessage => _successMessageController;
   void showSuccessMessage(String msg) => _successMessageController = msg;
 
+  /// Defines page state of a particular screen
+  PageState _pageStateController = PageState.DEFAULT;
+  PageState get pageState => _pageStateController;
+  void updatePageState(PageState state) => _pageStateController = state;
+
+  void resetPageState(){
+    _pageStateController = PageState.DEFAULT;
+    notifyListeners();
+  }
+  void showPageLoading(){
+    _pageStateController = PageState.LOADING;
+    notifyListeners();
+  }
+  void hideLoading() => resetPageState();
+
+  void resetPageMessage(){
+    _messageController = "";
+    _errorMessageController = "";
+    _successMessageController = "";
+  }
+
+
+//ignore: long-method
   dynamic callDataService<T>(
       Future<T> future, {
         Function(Exception exception)? onError,
@@ -57,6 +66,7 @@ abstract class BaseController extends ChangeNotifier {
         Function? onStart,
         Function? onComplete,
       }) async {
+    resetPageMessage();
     Exception? tempException;
 
     onStart == null ? showPageLoading() : onStart();
@@ -66,7 +76,12 @@ abstract class BaseController extends ChangeNotifier {
 
       if (onSuccess != null) onSuccess(response);
 
-      onComplete == null ? hideLoading() : onComplete();
+      if(onComplete!=null){
+        hideLoading();
+        onComplete();
+      } else {
+        hideLoading();
+      }
 
       return response;
     } on ServiceUnavailableException catch (exception) {
@@ -98,9 +113,17 @@ abstract class BaseController extends ChangeNotifier {
       logger.e("Controller>>>>>> error $error");
     }
 
-    if (onError != null) onError(tempException);
+    if (onError != null){
+      hideLoading();
+      onError(tempException);
+    }
 
-    onComplete == null ? hideLoading() : onComplete();
+    if(onComplete!=null){
+      hideLoading();
+      onComplete();
+    } else{
+      hideLoading();
+    }
   }
 
 

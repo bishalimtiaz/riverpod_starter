@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '/app/data/repository/github_repository.dart';
 import '/app/core/base/base_controller.dart';
 import '/app/core/base/paging_controller.dart';
-import '../../../data/model/query_model/github_search_query_param.dart';
-import '../../../data/model/response_model/github_project_search_response.dart';
+import '/app/data/model/query_model/github_search_query_param.dart';
+import '/app/data/model/response_model/github_project_search_response.dart';
 import '/app/modules/home/ui_model/github_project_ui_model.dart';
 
 class HomeController extends BaseController {
@@ -23,7 +23,7 @@ class HomeController extends BaseController {
 
   void _getGithubGetxProjects() {
     var queryParam = GithubSearchQueryParam(
-      searchKeyWord: 'flutter riverpod template',
+      searchKeyWord: 'flutter riverpod',
       pageNumber: ref.read(pagingControllerProvider).pageNumber,
     );
     var githubRepoSearchService = repository.searchProject(queryParam);
