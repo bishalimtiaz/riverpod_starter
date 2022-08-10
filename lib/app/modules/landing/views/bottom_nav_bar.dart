@@ -10,8 +10,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '/app/modules/landing/ui_model/menu_item.dart';
 
 class BottomNavBar extends ConsumerWidget {
-  final Color selectedItemColor = Colors.white;
-  final unselectedItemColor = Colors.grey;
   final Function(MenuCode menuCode) onNewMenuSelected;
 
   late final List<BottomNavItem> _navItems;
@@ -27,7 +25,6 @@ class BottomNavBar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    //TODO: Take A Look If You Can Refactor
     int selectedIndex = ref.watch(bottomNavSelectedIndexProvider);
 
     return BottomNavigationBar(
@@ -40,8 +37,8 @@ class BottomNavBar extends ConsumerWidget {
                   height: AppValues.iconDefaultSize,
                   width: AppValues.iconDefaultSize,
                   color: _navItems.indexOf(navItem) == selectedIndex
-                      ? selectedItemColor
-                      : unselectedItemColor,
+                      ? AppColors.selectedItemColor
+                      : AppColors.unselectedItemColor,
                 ),
                 label: navItem.navTitle,
                 tooltip: ""),
@@ -51,13 +48,14 @@ class BottomNavBar extends ConsumerWidget {
       showUnselectedLabels: true,
       type: BottomNavigationBarType.fixed,
       backgroundColor: AppColors.colorAccent,
-      selectedItemColor: selectedItemColor,
-      unselectedItemColor: unselectedItemColor,
+      selectedItemColor: AppColors.selectedItemColor,
+      unselectedItemColor: AppColors.unselectedItemColor,
       currentIndex: selectedIndex,
       onTap: (index) {
-        //TODO: Take A Look If You Can Refactor
-        ref.read(bottomNavSelectedIndexProvider.notifier).state = index;
-        onNewMenuSelected(_navItems[index].menuCode);
+        if(selectedIndex != index){
+          ref.read(bottomNavSelectedIndexProvider.notifier).state = index;
+          onNewMenuSelected(_navItems[index].menuCode);
+        }
       },
     );
   }
