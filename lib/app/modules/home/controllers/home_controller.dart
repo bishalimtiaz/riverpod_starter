@@ -8,7 +8,7 @@ import '/app/data/model/response_model/github_project_search_response.dart';
 import '/app/modules/home/ui_model/github_project_ui_model.dart';
 
 class HomeController extends BaseController {
-  final ChangeNotifierProvider<PagingController<GithubProjectUiModel>>
+  final ProviderBase<PagingController<GithubProjectUiModel>>
       pagingControllerProvider;
 
   final GithubRepository repository;
@@ -16,7 +16,7 @@ class HomeController extends BaseController {
   final List<GithubProjectUiModel> githubProjectList = [];
 
   HomeController({
-    required ChangeNotifierProviderRef<ChangeNotifier> ref,
+    required Ref<ChangeNotifier> ref,
     required this.repository,
     required this.pagingControllerProvider,
   }) : super(ref: ref);
@@ -28,12 +28,13 @@ class HomeController extends BaseController {
     );
     var githubRepoSearchService = repository.searchProject(queryParam);
 
-
     callDataService(
       githubRepoSearchService,
-      onStart: ref.read(pagingControllerProvider).isInitialLoad ? null : () {}, //ignore: no-empty-block
+      onStart: ref.read(pagingControllerProvider).isInitialLoad
+          ? null
+          : () {}, //ignore: no-empty-block
       onSuccess: _handleProjectListResponseSuccess,
-      onError: (Exception e){
+      onError: (Exception e) {
         ref.read(pagingControllerProvider).setIsLoading(false);
       },
     );
@@ -71,5 +72,11 @@ class HomeController extends BaseController {
   void onInit() {
     _getGithubGetxProjects();
     super.onInit();
+  }
+
+  @override
+  void onDispose() {
+    ref.invalidate(pagingControllerProvider);
+    super.onDispose();
   }
 }

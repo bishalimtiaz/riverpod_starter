@@ -14,7 +14,7 @@ import '/app/network/exceptions/unauthorize_exception.dart';
 
 abstract class BaseController extends ChangeNotifier {
   final Logger logger = BuildConfig.instance.config.logger;
-  final ChangeNotifierProviderRef<ChangeNotifier>  ref;
+  final Ref<ChangeNotifier>  ref;
 
   BaseController({required this.ref}) {
     onInit();
