@@ -11,17 +11,19 @@ import '/app/core/widget/icon_text_widgets.dart';
 
 class ItemGithubProject extends StatelessWidget with BaseWidgetMixin {
   final GithubProjectUiModel dataModel;
+  final Function() onTap;
 
   ItemGithubProject({
     Key? key,
     required this.dataModel,
+    required this.onTap,
   }) : super(key: key);
 
   @override
   Widget body(BuildContext context) {
     return ElevatedContainer(
       child: Ripple(
-        onTap: _onTap,
+        onTap: onTap,
         child: Padding(
           padding: const EdgeInsets.all(AppValues.padding),
           child: Row(
@@ -90,9 +92,5 @@ class ItemGithubProject extends StatelessWidget with BaseWidgetMixin {
         ),
       ],
     );
-  }
-
-  void _onTap() {
-    logger.d("tapped");
   }
 }

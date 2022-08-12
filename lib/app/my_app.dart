@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:riverpod_starter/app/core/services/navigation_service.dart';
-import 'package:riverpod_starter/app/modules/landing/views/landing_view.dart';
+import '/app/routes/app_pages.dart';
 import '/app/core/values/app_colors.dart';
 import '/flavors/build_config.dart';
 import '/flavors/env_config.dart';
@@ -18,14 +17,14 @@ class MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: _envConfig.appName,
-      //initialRoute: AppPages.INITIAL,
-       //initialBinding: InitialBinding(),
-      // getPages: AppPages.routes,
-      navigatorKey: NavigationService.navigatorKey,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: _getSupportedLocal(),
+      //debugShowCheckedModeBanner: true,
+      routerDelegate: AppPages.router.routerDelegate,
+      routeInformationParser: AppPages.router.routeInformationParser,
+      routeInformationProvider: AppPages.router.routeInformationProvider,
       theme: ThemeData(
         primarySwatch: AppColors.colorPrimarySwatch,
         visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -40,8 +39,8 @@ class MyAppState extends State<MyApp> {
         ),
         fontFamily: 'Roboto',
       ),
-      debugShowCheckedModeBanner: false,
-      home: LandingView(),
+
+      //home: LandingView(),
     );
   }
 
