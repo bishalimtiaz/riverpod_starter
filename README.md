@@ -1,6 +1,6 @@
-# Flutter GetX Template (GetX, Dio, MVVM)
+# Flutter Riverpod Template/Starter Project (Riverpod,go_router, Dio, MVVM)
 
-This Flutter Template using [GetX](https://pub.dev/packages/get) package for State management, routing and Dependency Injection (bindings). We are using [MVVM](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel) (Model View ViewModel) architectural pattern here. For network call we are using [Dio](https://pub.dev/packages/dio) package. We followed the recommended folder structure of GetX and used [Get CLI](https://pub.dev/packages/get_cli) command line tool for creating the folder structure.
+This Flutter Template using [Riverpod](https://pub.dev/packages/riverpod) package for State management and [go_router](https://pub.dev/packages/go_router). We are using [MVVM](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel) (Model View ViewModel) architectural pattern here. For network call we are using [Dio](https://pub.dev/packages/dio) package.
 
 # Architecture of this project: MVVM
 
@@ -32,6 +32,10 @@ You will find at above link step by step instructions with screenshots.
 
 `flutter pub run change_app_package_name:main your_package_name`
 
-# How was this project developed?
-- Run [get cli](https://pub.dev/packages/get_cli) command to create project in the required directory: `get create project`
-- Create `main_view` by running this command: `get create page:main` and so on...
+# Some Practices To Be Followed:
+  - Every Screen Must Extend `BaseView` and must have a controller that extends `BaseController`. All the UI logic should be handled in the controller. This controller may or may not be depended on some repository for data. If the controller depends on some repository it mus be passes via constructor injection during controller provider declaration.
+  - Every repository will be responsible for deciding from where to fetch data(i.e., either from local data source or remote data source) and returning data to dependent controller. Every repository may be dependednt on some remote data source or local data source or on both and this dependency should be passed using constructor. Every repository provider should be auto disposable i.e., use `.autoDispose`.
+  - Every widget should be `Stateless` and wrap with `Consumer` builder if it dpends on some data from its controller and watch that data usinmg `ref.watch`. If you need to call some controler function use `ref.read'
+  - The `watch` and `read` method should not be called asynchronously, like inside an onPressed of an ElevatedButton. Nor should it be used inside initState and other State life-cycles.In those cases, consider using ref.read instead.
+  - DON'T use ref.read inside the build method
+  - If a screen controller depends on some controller that extends `ChangeNotifier` should be passesd as controller provider to that dependent controller and must be disposed on 'onDisposed' callback using `ref.invalidate(provider)`.
