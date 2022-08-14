@@ -3,7 +3,7 @@ import '/app/data/data_source/remote_data_source_impl/github_remote_data_source_
 import '/app/data/repository/github_repository.dart';
 import '/app/data/repository_impl/github_repository_impl.dart';
 
-final githubRepositoryProvider = Provider<GithubRepository>(
+final githubRepositoryProvider = Provider.autoDispose<GithubRepository>(
   (ref) => GithubRepositoryImpl(
     remoteSource: GithubRemoteDataSourceImpl(),
   ),

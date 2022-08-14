@@ -7,7 +7,7 @@ class LandingController extends BaseController {
   MenuCode bottomNavSelectedMenu = MenuCode.HOME;
 
   LandingController({
-    required ChangeNotifierProviderRef<ChangeNotifier> ref,
+    required Ref<ChangeNotifier> ref,
   }) : super(ref: ref);
 
   void onMenuSelected(MenuCode menuCode) {

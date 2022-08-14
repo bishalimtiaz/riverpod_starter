@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_starter/app/core/base/provider_logger.dart';
+import 'package:riverpod_starter/app/core/utils/provider_logger.dart';
 
 import '/app/my_app.dart';
 import '/flavors/build_config.dart';

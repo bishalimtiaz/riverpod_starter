@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '/app/core/services/navigation_service.dart';
+import '/app/core/services/app_service.dart';
 import '/app/core/values/app_colors.dart';
 import '/app/core/values/app_values.dart';
 import '/app/modules/landing/providers/landing_provider.dart';
@@ -61,8 +61,7 @@ class BottomNavBar extends ConsumerWidget {
   }
 
   List<BottomNavItem> _getNavItems() {
-    final AppLocalizations appLocalization =
-        AppLocalizations.of(NavigationService.navigatorKey.currentContext!)!;
+    final AppLocalizations appLocalization = AppLocalizations.of(AppService.context)!;
 
     return [
       BottomNavItem(
