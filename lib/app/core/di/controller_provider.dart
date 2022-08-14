@@ -39,6 +39,9 @@ final githubProjectListPagingControllerProvider =
 );
 
 final projectDetailsControllerProvider =
-    ChangeNotifierProvider<ProjectDetailsController>(
-  (ref) => ProjectDetailsController(ref: ref),
+    ChangeNotifierProvider.autoDispose<ProjectDetailsController>(
+  (ref) => ProjectDetailsController(
+    repository: ref.read(githubRepositoryProvider),
+    ref: ref,
+  ),
 );

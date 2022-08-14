@@ -23,23 +23,35 @@ abstract class BaseController extends ChangeNotifier {
   /// Shows user specific message on the screen
   String _messageController = "";
   String get message => _messageController;
-  void showMessage(String msg) => _messageController = msg;
+  void showMessage(String msg) {
+    _messageController = msg;
+    notifyListeners();
+  }
 
   /// Shows user specific error message on the screen
   String _errorMessageController = "";
   String get errorMessage => _errorMessageController;
-  void showErrorMessage(String msg) => _errorMessageController = msg;
+  void showErrorMessage(String msg) {
+    _errorMessageController = msg;
+    notifyListeners();
+  }
 
 
   /// shows user specific success message on the screen
   String _successMessageController = "";
   String get successMessage => _successMessageController;
-  void showSuccessMessage(String msg) => _successMessageController = msg;
+  void showSuccessMessage(String msg) {
+    _successMessageController = msg;
+    notifyListeners();
+  }
 
   /// Defines page state of a particular screen
   PageState _pageStateController = PageState.DEFAULT;
   PageState get pageState => _pageStateController;
-  void updatePageState(PageState state) => _pageStateController = state;
+  void updatePageState(PageState state) {
+    _pageStateController = state;
+    notifyListeners();
+  }
 
   void resetPageState(){
     _pageStateController = PageState.DEFAULT;

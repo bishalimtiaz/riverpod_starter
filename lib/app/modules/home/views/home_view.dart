@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:riverpod_starter/app/modules/project_details/models/project_details_arg.dart';
 import 'package:riverpod_starter/app/routes/app_routes.dart';
 import '/app/core/widget/paging_view.dart';
 import '/app/core/base/base_view.dart';
@@ -46,12 +47,12 @@ class HomeView extends BaseView<HomeController> {
                     return ItemGithubProject(
                       dataModel: model,
                       onTap: () {
+                        /// extras is not recommended to use. arguments may not fit if you target web app.
+                        /// Because browser back button, browser refresh, deep linking can't pass argument and ypu will get this argument null
+                        /// prefer using queryParams instead.
                         context.pushNamed(
                           Routes.PROJECT_DETAILS,
-                          queryParams: {
-                            // 'userName': model.ownerLoginName,
-                            // 'repositoryName' : model.repositoryName,
-                          }
+                          extra: ProjectDetailsArg(userName: model.ownerLoginName, repoName: model.repositoryName),
                         );
                       },
                     );
