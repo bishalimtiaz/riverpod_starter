@@ -9,7 +9,7 @@ import '/flavors/environment.dart';
 
 void main() {
   EnvConfig devConfig = EnvConfig(
-    appName: "Flutter GetX Template Dev",
+    appName: "Flutter Riverpod Template Dev",
     baseUrl: "https://api.github.com",
     shouldCollectCrashLog: true,
   );
