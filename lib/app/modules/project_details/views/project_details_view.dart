@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_starter/app/core/values/app_colors.dart';
-import 'package:riverpod_starter/app/core/values/app_values.dart';
-import 'package:riverpod_starter/app/core/values/text_styles.dart';
-import 'package:riverpod_starter/app/core/widget/custom_app_bar.dart';
-import 'package:riverpod_starter/app/core/widget/icon_text_widgets.dart';
-import 'package:riverpod_starter/app/modules/project_details/controllers/project_details_controller.dart';
+import '/app/core/values/app_colors.dart';
+import '/app/core/values/app_values.dart';
+import '/app/core/values/text_styles.dart';
+import '/app/core/widget/custom_app_bar.dart';
+import '/app/core/widget/icon_text_widgets.dart';
+import '/app/modules/project_details/controllers/project_details_controller.dart';
 import '/app/core/base/base_view.dart';
 import '/app/core/di/controller_provider.dart';
 

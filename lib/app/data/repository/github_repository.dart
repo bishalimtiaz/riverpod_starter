@@ -1,5 +1,5 @@
-import '../model/query_model/github_search_query_param.dart';
-import '../model/response_model/github_project_search_response.dart';
+import '/app/data/model/query_model/github_search_query_param.dart';
+import '/app/data/model/response_model/github_project_search_response.dart';
 
 abstract class GithubRepository {
   Future<GithubProjectSearchResponse> searchProject(

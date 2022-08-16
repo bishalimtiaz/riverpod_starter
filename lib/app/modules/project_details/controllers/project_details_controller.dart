@@ -1,10 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_starter/app/core/services/app_service.dart';
-import 'package:riverpod_starter/app/data/model/response_model/github_project_search_response.dart';
-import 'package:riverpod_starter/app/data/repository/github_repository.dart';
-import 'package:riverpod_starter/app/modules/home/ui_model/github_project_ui_model.dart';
-import 'package:riverpod_starter/app/modules/project_details/models/project_details_arg.dart';
+import '/app/core/services/app_service.dart';
+import '/app/data/model/response_model/github_project_search_response.dart';
+import '/app/data/repository/github_repository.dart';
+import '/app/modules/home/ui_model/github_project_ui_model.dart';
+import '/app/modules/project_details/models/project_details_arg.dart';
 import '/app/core/base/base_controller.dart';
 
 class ProjectDetailsController extends BaseController {

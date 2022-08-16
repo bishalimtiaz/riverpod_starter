@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:riverpod_starter/app/modules/project_details/models/project_details_arg.dart';
-import 'package:riverpod_starter/app/routes/app_routes.dart';
+import '/app/modules/project_details/models/project_details_arg.dart';
+import '/app/routes/app_routes.dart';
 import '/app/core/widget/paging_view.dart';
 import '/app/core/base/base_view.dart';
 import '/app/core/di/controller_provider.dart';

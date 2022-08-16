@@ -1,5 +1,5 @@
 import 'package:go_router/go_router.dart';
-import 'package:riverpod_starter/app/routes/app_routes.dart';
+import '/app/routes/app_routes.dart';
 import '/app/modules/landing/views/landing_view.dart';
 import '/app/modules/project_details/views/project_details_view.dart';
 

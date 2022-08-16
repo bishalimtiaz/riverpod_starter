@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:riverpod_starter/app/data/local/preference/preference_manager.dart';
+import '/app/data/local/preference/preference_manager.dart';
 
 
 import '/app/network/dio_provider.dart';

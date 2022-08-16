@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:riverpod_starter/flavors/environment.dart';
+import '/flavors/environment.dart';
 
 import '/app/network/pretty_dio_logger.dart';
 import '/app/network/request_headers.dart';
