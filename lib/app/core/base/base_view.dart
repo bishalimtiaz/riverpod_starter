@@ -16,7 +16,8 @@ abstract class BaseView<T extends BaseController> extends StatelessWidget {
 
   final GlobalKey<ScaffoldState> globalKey = GlobalKey<ScaffoldState>();
 
-  AppLocalizations get appLocalization => AppLocalizations.of(AppService.context)!;
+  AppLocalizations get appLocalization =>
+      AppLocalizations.of(AppService.context)!;
 
   final Logger logger = BuildConfig.instance.config.logger;
 

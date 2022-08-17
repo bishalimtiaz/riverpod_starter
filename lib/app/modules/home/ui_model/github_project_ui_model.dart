@@ -29,7 +29,6 @@ class GithubProjectUiModel {
     required double score,
     required int watchers,
   }) {
-
     this.repositoryName = repositoryName;
     this.ownerLoginName = ownerLoginName;
     this.ownerAvatar = ownerAvatar;

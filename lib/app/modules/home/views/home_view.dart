@@ -11,7 +11,6 @@ import '/app/modules/home/controllers/home_controller.dart';
 import '/app/modules/home/widget/item_github_project.dart';
 
 class HomeView extends BaseView<HomeController> {
-
   HomeView({Key? key}) : super(key: key);
 
   @override
@@ -52,7 +51,9 @@ class HomeView extends BaseView<HomeController> {
                         /// prefer using queryParams instead.
                         context.pushNamed(
                           Routes.PROJECT_DETAILS,
-                          extra: ProjectDetailsArg(userName: model.ownerLoginName, repoName: model.repositoryName),
+                          extra: ProjectDetailsArg(
+                              userName: model.ownerLoginName,
+                              repoName: model.repositoryName),
                         );
                       },
                     );

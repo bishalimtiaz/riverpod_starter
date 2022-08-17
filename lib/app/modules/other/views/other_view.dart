@@ -7,7 +7,7 @@ import '/app/modules/other/controllers/other_controller.dart';
 class OtherView extends BaseView<OtherController> {
   @override
   PreferredSizeWidget? appBar(BuildContext context) {
-   return null;
+    return null;
   }
 
   @override

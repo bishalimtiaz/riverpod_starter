@@ -52,7 +52,7 @@ class BottomNavBar extends ConsumerWidget {
       unselectedItemColor: AppColors.unselectedItemColor,
       currentIndex: selectedIndex,
       onTap: (index) {
-        if(selectedIndex != index){
+        if (selectedIndex != index) {
           ref.read(bottomNavSelectedIndexProvider.notifier).state = index;
           onNewMenuSelected(_navItems[index].menuCode);
         }
@@ -61,7 +61,8 @@ class BottomNavBar extends ConsumerWidget {
   }
 
   List<BottomNavItem> _getNavItems() {
-    final AppLocalizations appLocalization = AppLocalizations.of(AppService.context)!;
+    final AppLocalizations appLocalization =
+        AppLocalizations.of(AppService.context)!;
 
     return [
       BottomNavItem(

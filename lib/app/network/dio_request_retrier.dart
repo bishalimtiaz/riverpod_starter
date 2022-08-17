@@ -1,13 +1,11 @@
 import 'package:dio/dio.dart';
 import '/app/data/local/preference/preference_manager.dart';
 
-
 import '/app/network/dio_provider.dart';
 
 class DioRequestRetrier {
   final dioClient = DioProvider.tokenClient;
   final RequestOptions requestOptions;
-
 
   DioRequestRetrier({required this.requestOptions});
 
@@ -26,7 +24,8 @@ class DioRequestRetrier {
   }
 
   Future<Map<String, String>> getCustomHeaders() async {
-    final String accessToken = await PreferenceManager.getString(PreferenceManager.keyToken);
+    final String accessToken =
+        await PreferenceManager.getString(PreferenceManager.keyToken);
     var customHeaders = {'content-type': 'application/json'};
     if (accessToken.trim().isNotEmpty) {
       customHeaders.addAll({

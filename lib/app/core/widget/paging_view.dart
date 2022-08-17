@@ -11,8 +11,7 @@ class PagingView extends ConsumerWidget {
   final Widget child;
   final Function() onLoadNextPage;
   final Future<void> Function()? onRefresh;
-  final ProviderBase<PagingController<dynamic>>
-      pagingControllerProvider;
+  final ProviderBase<PagingController<dynamic>> pagingControllerProvider;
 
   PagingView({
     Key? key,

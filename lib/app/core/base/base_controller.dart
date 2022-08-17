@@ -14,7 +14,7 @@ import '/app/network/exceptions/unauthorize_exception.dart';
 
 abstract class BaseController extends ChangeNotifier {
   final Logger logger = BuildConfig.instance.config.logger;
-  final Ref<ChangeNotifier>  ref;
+  final Ref<ChangeNotifier> ref;
 
   BaseController({required this.ref}) {
     onInit();
@@ -36,7 +36,6 @@ abstract class BaseController extends ChangeNotifier {
     notifyListeners();
   }
 
-
   /// shows user specific success message on the screen
   String _successMessageController = "";
   String get successMessage => _successMessageController;
@@ -53,31 +52,32 @@ abstract class BaseController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void resetPageState(){
+  void resetPageState() {
     _pageStateController = PageState.DEFAULT;
     notifyListeners();
   }
-  void showPageLoading(){
+
+  void showPageLoading() {
     _pageStateController = PageState.LOADING;
     notifyListeners();
   }
+
   void hideLoading() => resetPageState();
 
-  void resetPageMessage(){
+  void resetPageMessage() {
     _messageController = "";
     _errorMessageController = "";
     _successMessageController = "";
   }
 
-
 //ignore: long-method
   dynamic callDataService<T>(
-      Future<T> future, {
-        Function(Exception exception)? onError,
-        Function(T response)? onSuccess,
-        Function? onStart,
-        Function? onComplete,
-      }) async {
+    Future<T> future, {
+    Function(Exception exception)? onError,
+    Function(T response)? onSuccess,
+    Function? onStart,
+    Function? onComplete,
+  }) async {
     resetPageMessage();
     Exception? tempException;
 
@@ -88,7 +88,7 @@ abstract class BaseController extends ChangeNotifier {
 
       if (onSuccess != null) onSuccess(response);
 
-      if(onComplete!=null){
+      if (onComplete != null) {
         hideLoading();
         onComplete();
       } else {
@@ -125,19 +125,18 @@ abstract class BaseController extends ChangeNotifier {
       logger.e("Controller>>>>>> error $error");
     }
 
-    if (onError != null){
+    if (onError != null) {
       hideLoading();
       onError(tempException);
     }
 
-    if(onComplete!=null){
+    if (onComplete != null) {
       hideLoading();
       onComplete();
-    } else{
+    } else {
       hideLoading();
     }
   }
-
 
   @mustCallSuper
   //ignore: no-empty-block

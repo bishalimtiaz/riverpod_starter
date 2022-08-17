@@ -22,41 +22,40 @@ class ProjectDetailsView extends BaseView<ProjectDetailsController> {
 
   @override
   Widget body(BuildContext context) {
-    return  Consumer(
-      builder: (context,ref,_) {
-        String repositoryName = ref.watch(controller).githubProjectUiModel.repositoryName;
+    return Consumer(builder: (context, ref, _) {
+      String repositoryName =
+          ref.watch(controller).githubProjectUiModel.repositoryName;
 
-        return repositoryName.isEmpty
-        ? const SizedBox()
-        : Container(
-          margin: const EdgeInsets.all(AppValues.margin_20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                repositoryName,
-                style: cardTitleStyle,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
+      return repositoryName.isEmpty
+          ? const SizedBox()
+          : Container(
+              margin: const EdgeInsets.all(AppValues.margin_20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    repositoryName,
+                    style: cardTitleStyle,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                  ),
+                  _getAuthor(),
+                  const SizedBox(height: AppValues.margin_4),
+                  _getForkStarWatcherView(),
+                  const SizedBox(height: AppValues.margin_30),
+                  _getDescription()
+                ],
               ),
-              _getAuthor(),
-              const SizedBox(height: AppValues.margin_4),
-              _getForkStarWatcherView(),
-              const SizedBox(height: AppValues.margin_30),
-              _getDescription()
-            ],
-          ),
-        );
-      }
-    );
+            );
+    });
   }
-
 
   Widget _getAuthor() {
     return Row(
       children: [
         Consumer(builder: (context, ref, _) {
-          String imgUrl = ref.watch(controller).githubProjectUiModel.ownerAvatar;
+          String imgUrl =
+              ref.watch(controller).githubProjectUiModel.ownerAvatar;
 
           return CircleAvatar(
             backgroundImage: NetworkImage(imgUrl),
@@ -65,7 +64,8 @@ class ProjectDetailsView extends BaseView<ProjectDetailsController> {
         }),
         const SizedBox(width: AppValues.margin_6),
         Consumer(builder: (context, ref, _) {
-          String ownerName = ref.watch(controller).githubProjectUiModel.ownerLoginName;
+          String ownerName =
+              ref.watch(controller).githubProjectUiModel.ownerLoginName;
 
           return Text(
             ownerName,

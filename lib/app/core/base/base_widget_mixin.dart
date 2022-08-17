@@ -5,7 +5,8 @@ import '/app/core/services/app_service.dart';
 import '/flavors/build_config.dart';
 
 mixin BaseWidgetMixin on StatelessWidget {
-  AppLocalizations get appLocalization => AppLocalizations.of(AppService.context)!;
+  AppLocalizations get appLocalization =>
+      AppLocalizations.of(AppService.context)!;
   final Logger logger = BuildConfig.instance.config.logger;
 
   @override

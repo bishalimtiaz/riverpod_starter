@@ -26,7 +26,6 @@ class ProjectDetailsController extends BaseController {
   }
 
   void _handleProjectDetailsResponseSuccess(Item project) {
-
     githubProjectUiModel.copyWith(
       repositoryName: project.name != null ? project.name! : "",
       ownerLoginName: project.owner != null ? project.owner!.login! : "",
@@ -47,9 +46,9 @@ class ProjectDetailsController extends BaseController {
     /// Because browser back button, browser refresh, deep linking can't pass argument and ypu will get this argument null
     /// prefer using queryParams instead.
     argument = AppService.argument as ProjectDetailsArg?;
-    if(argument != null){
+    if (argument != null) {
       getGithubRepository(argument!.userName, argument!.repoName);
-    } else{
+    } else {
       showErrorMessage("Something Went Wrong");
     }
     super.onInit();

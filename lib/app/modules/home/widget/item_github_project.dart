@@ -8,7 +8,6 @@ import '/app/core/values/text_styles.dart';
 import '/app/core/widget/elevated_container.dart';
 import '/app/core/widget/icon_text_widgets.dart';
 
-
 class ItemGithubProject extends StatelessWidget with BaseWidgetMixin {
   final GithubProjectUiModel dataModel;
   final Function() onTap;

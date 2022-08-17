@@ -4,24 +4,28 @@ import '/app/routes/app_pages.dart';
 abstract class AppService {
   AppService._();
 
-  static BuildContext get context => AppPages.router.routerDelegate.navigatorKey.currentContext!;
+  static BuildContext get context =>
+      AppPages.router.routerDelegate.navigatorKey.currentContext!;
 
-  static Object? get argument => AppPages.router.routerDelegate.currentConfiguration.last.extra;
+  static Object? get argument =>
+      AppPages.router.routerDelegate.currentConfiguration.last.extra;
 
-  static Map<String,String> get queryParams => AppPages.router.routerDelegate.currentConfiguration.last.queryParams;
+  static Map<String, String> get queryParams =>
+      AppPages.router.routerDelegate.currentConfiguration.last.queryParams;
 
-  static Map<String,String> get pathParams => AppPages.router.routerDelegate.currentConfiguration.last.decodedParams;
+  static Map<String, String> get pathParams =>
+      AppPages.router.routerDelegate.currentConfiguration.last.decodedParams;
 
-  static bool get hasQuery => AppPages.router.routerDelegate.currentConfiguration.location.hasQuery;
+  static bool get hasQuery =>
+      AppPages.router.routerDelegate.currentConfiguration.location.hasQuery;
 
-  static String get path => AppPages.router.routerDelegate.currentConfiguration.location.path;
-
+  static String get path =>
+      AppPages.router.routerDelegate.currentConfiguration.location.path;
 
   ///Use it to debug if any issue occurs with [argument]] [queryParams]] [pathParams]] [hasQuery]] [path]]
   ///Remove It Before Production
   //ignore: no-empty-block
-  static void test(){
-
+  static void test() {
     // print("arg_debug: currentConfiguration");
     // print("arg_debug: currentConfiguration->extra: ${AppPages.router.routerDelegate.currentConfiguration.extra}");
     //
@@ -40,8 +44,6 @@ abstract class AppService {
     // print("arg_debug: currentConfiguration.last->decodedParams: ${AppPages.router.routerDelegate.currentConfiguration.last.decodedParams}");
     // print("arg_debug: currentConfiguration.last-> encodedParams: ${AppPages.router.routerDelegate.currentConfiguration.last.encodedParams}");
 
-
-
     //currentConfiguration.last.route
     // print("arg_debug: currentConfiguration.last.route");
     // print("arg_debug: currentConfiguration.last.route->path: ${AppPages.router.routerDelegate.currentConfiguration.last.route.path}");
@@ -52,6 +54,5 @@ abstract class AppService {
     // print("arg_debug: ccurrentConfiguration.matches.last->queryParams: ${AppPages.router.routerDelegate.currentConfiguration.matches.last.queryParams}");
     // print("arg_debug: ccurrentConfiguration.matches.last->decodedParams: ${AppPages.router.routerDelegate.currentConfiguration.matches.last.decodedParams}");
     // print("arg_debug: ccurrentConfiguration.matches.last->encodedParams ${AppPages.router.routerDelegate.currentConfiguration.matches.last.encodedParams}");
-
   }
 }

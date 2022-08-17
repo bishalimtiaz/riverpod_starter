@@ -25,7 +25,8 @@ class LandingView extends BaseView<LandingController> {
       key: UniqueKey(),
       child: Consumer(
         builder: (context, ref, _) {
-          final MenuCode selectedMenu = ref.watch(controller).bottomNavSelectedMenu;
+          final MenuCode selectedMenu =
+              ref.watch(controller).bottomNavSelectedMenu;
 
           return _getPageOnSelectedMenu(selectedMenu);
         },
