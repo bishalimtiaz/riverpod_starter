@@ -1,10 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.blz.flutter.riverpod_starter">
-
-    <uses-permission android:name="android.permission.INTERNET"/>
-
+    package="com.example.riverpod_starter">
    <application
-        android:label="flutter_getx_template"
+        android:label="riverpod_starter"
+        android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
