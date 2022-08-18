@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.riverpod_starter">
+    package="com.blz.flutter.riverpod_starter">
    <application
-        android:label="riverpod_starter"
+        android:label="@string/app_name"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
