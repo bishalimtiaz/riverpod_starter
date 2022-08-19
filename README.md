@@ -28,7 +28,11 @@ You will find at above link step by step instructions with screenshots.
 1. Rename root folder name
 2. Update project name and description from pubspec.yaml. 
 3. Update app launcher name and icon. [Reference](https://medium.com/@vaibhavi.rana99/change-application-name-and-icon-in-flutter-bebbec297c57)
-4. Update your app's package name by [running this command](https://pub.dev/packages/change_app_package_name):
+   - Android: Go to `android/app/build.gradle` file and find ` resValue "string", "app_name", "Riverpod Starter Dev" ` and change the app name for both flavors.
+   - IOS: Go to `ios/Runner.xcodeproj/project.pbxproj` file and find all `APP_NAME` and replace with your app name.
+4. Update your app's package name 
+   - Android: [running this command](https://pub.dev/packages/change_app_package_name). underscore `_` should be use in package name.
+   - IOS: Go to `ios/Runner.xcodeproj/project.pbxproj` file and find all `PRODUCT_BUNDLE_IDENTIFIER` and replace with your bundle identifier. Bundle Identifier must be in `CamelCase`.
 
 `flutter pub run change_app_package_name:main your_package_name`
 
